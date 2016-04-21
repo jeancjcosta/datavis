@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title> Highcharts - Exemplo </title>
+        <!-- 1. Add these JavaScript inclusions in the head of your page -->
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/modules/data.js"></script>
+        
+        <!-- 2. Add the JavaScript to initialize the chart on document ready -->
+		
+    </head>
+    <body>
+        <!-- 3. Add the container -->
+        <title>Movies</title>
+
+        <h1> Tarefa 2 de Visualização de Dados </h1>
+
+        <div id="movies1" style="width: 100%; height: 600px; margin: 10px auto"></div>
+        
+        <div id="movies2" style="width: 100%; height: 600px; margin: 10px auto"></div>
+
+        <script>
+            $(function () {
+                $('#movies1').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    
+                    title: {
+                        text: 'Filmes Lançados Por Gênero entre 2007 e 2009'
+                    },
+                    
+                    xAxis: {
+                        categories: ['Gênero'] 
+                    },
+                    
+                    yAxis: {
+                        title: {
+                            text: 'Número de Filmes'
+                        }
+                    },
+                    
+                    series: [{
+                        name: 'Comedy',
+                        data: [175]
+                    },{
+                        name: 'Action',
+                        data: [157]
+                    },{
+                        name: 'Drama',
+                        data: [102]
+                    },{
+                        name: 'Animation',
+                        data: [49]
+                    },{
+                        name: 'Horror',
+                        data: [49]
+                    },{
+                        name: 'Thriller',
+                        data: [35]
+                    },{
+                        name: 'Adventure',
+                        data: [29]
+                    },{
+                        name: 'Romance',
+                        data: [21]
+                    },{
+                        name: 'Crime',
+                        data: [16]
+                    },{
+                        name: 'Biography',
+                        data: [12]
+                    }]
+                           
+                });
+
+
+                $('#movies2').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    
+                    title: {
+                        text: 'Oscars por Gênero de filme entre 2007 e 2009'
+                    },
+                    series: [{
+                    //    name: 'Quantidade',
+                    //    data: [15,7,3,3,2,2,1,1]
+                    //}]
+                    
+						type: 'pie',
+						name: 'Quantidade',
+						data: [
+						['Drama', 15],
+						['Biography', 7],
+						['Animation', 3],
+						['Crime', 3],
+						['Comedy', 2],
+						['Thriller', 2],
+						['Adventure', 1],
+						['Romance', 1],
+						]
+					}]       
+                });
+             })
+        </script>    
+        <h4>Gráfico 1</h4>
+        <p>No gráfico 1 (colunas) é mostrado a quantidade de filmes lançados para cada gênero, no entanto são considerados apenas os 10 gêneros com mais filmes lançados</p>
+
+        <h4>Gráfico 2</h4>
+        <p>No gráfico 2 (pizza) é mostrado a quantidade de Oscaars que foram obtidos por cada gênero</p>
+
+        <h4>Dificuldades</h4>
+        Com relação ao highcharts as dificuldade ficaram limitadas a criar um gráfico em forma de pizza, mas com os exemplos encotrados no site do highcharts foi possível construir o gráfico. Outra dificuldade encontrada foi com o Tableau, pois eu tinha intenção de fazer algum gráfico que envolvesse a renda, no entanto o filme avatar nunca aparecia enre as maiores rendas e isso me fez mudar de ideia. 
+        
+    </body>
+</html>
