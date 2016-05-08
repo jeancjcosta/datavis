@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Grafico de Barras de Filmes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+<div id="chart2"></div>
+<div id="chart3"></div>
+
+<script type="text/javascript">
+    function render(data, comparator) {
+        d3.select("#chart")
+            .append("h1").text("Arrecadação dos Filmes (em milhões $)");
+        d3.select("#chart").selectAll("div.h-bar")
+                .data(data)
+            .enter().append("div")
+            .attr("class", "h-bar")
+            .append("span");
+        
+        d3.select("#chart").selectAll("div.h-bar")
+                .data(data)
+            .exit().remove();
+        
+        d3.select("#chart").selectAll("div.h-bar")
+                .data(data)
+            .attr("class", "h-bar")
+            .style("width", function (d) {
+                return (d.Worldwide_Gross_M/2) + "px";
+            })
+            .select("span")
+                .text(function (d) {
+                    return d.Film + " - " + d.Worldwide_Gross_M;
+                });
+         if(comparator)
+            d3.select("body")
+                .selectAll("div.h-bar") 
+                .sort(comparator);
+    }
+
+    function render2(data, comparator) {
+        d3.select("#chart2")
+            .append("h1").text("Custo dos Filmes (em milhões $)");
+        d3.select("#chart2").selectAll("div.c-bar")
+                .data(data)
+            .enter().append("div")
+            .attr("class", "c-bar")
+            .append("span");
+        
+        d3.select("#chart2").selectAll("div.c-bar")
+                .data(data)
+            .exit().remove();
+        
+        d3.select("#chart2").selectAll("div.c-bar")
+                .data(data)
+            .attr("class", "c-bar")
+            .style("width", function (d) {
+                return (d.Budget_M*3) + "px";
+            })
+            .select("span")
+                .text(function (d) {
+                    return d.Film + " - " + d.Budget_M;
+                });
+         if(comparator)
+            d3.select("body")
+                .selectAll("div.c-bar") 
+                .sort(comparator);
+    }
+
+    function render3(data, comparator) {
+        d3.select("#chart2")
+            .append("h1").text("Lucro dos Filmes (em milhões $)");
+        d3.select("#chart2").selectAll("div.k-bar")
+                .data(data)
+            .enter().append("div")
+            .attr("class", "k-bar")
+            .append("span");
+        
+        d3.select("#chart2").selectAll("div.k-bar")
+                .data(data)
+            .exit().remove();
+        
+        d3.select("#chart2").selectAll("div.k-bar")
+                .data(data)
+            .attr("class", "k-bar")
+            .style("width", function (d) {
+                return (d.Worldwide_Gross_M - d.Budget_M)/2 + "px";
+            })
+            .select("span")
+                .text(function (d) {
+                    return d.Film + " - " + (d.Worldwide_Gross_M - d.Budget_M);
+                });
+         if(comparator)
+            d3.select("body")
+                .selectAll("div.k-bar") 
+                .sort(comparator);
+    }
+    var comparePorOrcamento = function (a, b) { 
+        return a.Worldwide_Gross_M > b.Worldwide_Gross_M?-1:1;
+    };
+    
+    var comparePorCusto = function (a, b) { 
+        return a.Budget_M > b.Budget_M?-1:1;
+    };
+    
+    var comparePorLucro = function (a, b) { 
+        return (a.Worldwide_Gross_M-a.Budget_M) > (b.Worldwide_Gross_M-b.Budget_M)?-1:1;
+    };
+
+    d3.json("movies.json", function(error, json){ 
+        render(json, comparePorOrcamento);
+        render2(json, comparePorCusto);
+        render3(json, comparePorLucro);
+    });
+
+
+</script>
+
+</body>
+</html>
